@@ -13,14 +13,14 @@ from model_v2 import *
 
 config = tf.ConfigProto()
 
-config.gpu_options.allow_growth = True
+config.gpu_options.allow_growth = False
 
 sess = tf.Session(config=config)
 
 K.set_session(sess)
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 if __name__ == '__main__':
