@@ -4,7 +4,8 @@ from keras.optimizers import *
 
 IMG_SIZE = 512
 
-def unet(pretrained_weights=None, input_size=(IMG_SIZE, IMG_SIZE, 3),num_class=2):
+
+def unet(pretrained_weights=None, input_size=(IMG_SIZE, IMG_SIZE, 3), num_class=2):
     inputs = Input(input_size)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
     conv1 = Conv2D(64, 3, activation='relu', padding='same', kernel_initializer='he_normal')(conv1)
@@ -60,6 +61,6 @@ def unet(pretrained_weights=None, input_size=(IMG_SIZE, IMG_SIZE, 3),num_class=2
     model.compile(optimizer=Adam(lr=1e-4), loss=loss_function, metrics=["accuracy"])
     model.summary()
 
-    if (pretrained_weights):
+    if pretrained_weights:
         model.load_weights(pretrained_weights)
     return model

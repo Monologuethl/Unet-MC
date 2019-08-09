@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import os
 
+
 def create_pascal_label_colormap():
     colormap = np.zeros((256, 3), dtype=int)
     ind = np.arange(256, dtype=int)
@@ -32,17 +33,17 @@ def vis_segmentation2(image, seg_map):
     seg_image = label_to_color_image(seg_map).astype(np.uint8)
     plt.figure()
     plt.imshow(seg_image)
-    plt.imshow(image,alpha=0.5)
+    plt.imshow(image, alpha=0.5)
     plt.axis('off')
     plt.show()
 
 
 test_path = "CamVid\\test"
-predict_path =  "CamVid\\predict"
+predict_path = "CamVid\\predict"
 for filename in os.listdir(test_path):
-    imgfile = os.path.join(test_path,filename)
-    pngfile = os.path.join(predict_path,filename.split('.')[0]+"_predict.png")
+    imgfile = os.path.join(test_path, filename)
+    pngfile = os.path.join(predict_path, filename.split('.')[0] + "_predict.png")
     img = cv2.imread(imgfile, 1)
-    img = img[:,:,::-1]
+    img = img[:, :, ::-1]
     seg_map = cv2.imread(pngfile, 0)
     vis_segmentation2(img, seg_map)

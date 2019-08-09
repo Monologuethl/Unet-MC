@@ -61,19 +61,19 @@ class data_preprocess:
         self.img_type = 'png'
 
     def adjustData(self, img, label):
-        if (self.flag_multi_class):
+        if self.flag_multi_class:
             img = img / 255.
             label = label[:, :, :, 0] if (len(label.shape) == 4) else label[:, :, 0]
             new_label = np.zeros(label.shape + (self.num_class,))
             for i in range(self.num_class):
                 new_label[label == i, i] = 1
             label = new_label
-        elif (np.max(img) > 1):
+        elif np.max(img) > 1:
             img = img / 255.
             label = label / 255.
             label[label > 0.5] = 1
             label[label <= 0.5] = 0
-        return (img, label)
+        return img, label
 
     def trainGenerator(self, batch_size, image_save_prefix="image", label_save_prefix="label",
                        save_to_dir=None, seed=7):
@@ -162,4 +162,4 @@ class data_preprocess:
                         else:
                             img_std[k][j] = BackGround
             img_std = cv2.resize(img_std, size, interpolation=cv2.INTER_CUBIC)
-            cv2.imwrite(os.path.join(self.save_path, ("%s_predict." + self.img_type) % (name)), img_std)
+            cv2.imwrite(os.path.join(self.save_path, ("%s_predict." + self.img_type) % name), img_std)
